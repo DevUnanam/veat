@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, LoginForm
 from .models import User
 
+def home(request):
+    return render(request, "home.html")
+
 # Temporary in-memory storage for verification codes
 verification_codes = {}
 

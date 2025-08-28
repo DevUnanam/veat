@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 via-emerald-500 to-emerald-600 dark:from-emerald-600 dark:via-emerald-700 dark:to-emerald-800"></div>
+  <div class="relative z-10 text-center px-4 max-w-6xl mx-auto">
+    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
+      Welcome to <span class="text-emerald-200">V-Eats</span>
+    </h1>
+    <p class="text-xl md:text-2xl text-emerald-100 mb-8 max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
+      Discover delicious vegan cuisine delivered fresh to your doorstep. Experience the future of plant-based dining.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
+      <button class="bg-white text-emerald-600 font-semibold px-8 py-4 rounded-full hover:bg-emerald-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+        Order Now
+      </button>
+      <button class="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300 transform hover:scale-105">
+        Learn More
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating food icons -->
+  <div class="absolute top-20 left-10 animate-float">
+    <div class="text-6xl opacity-20">🥗</div>
+  </div>
+  <div class="absolute top-40 right-16 animate-float animation-delay-1000">
+    <div class="text-5xl opacity-20">🥑</div>
+  </div>
+  <div class="absolute bottom-32 left-20 animate-float animation-delay-2000">
+    <div class="text-4xl opacity-20">🍃</div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white dark:bg-emerald-900">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+        Why Choose V-Eats?
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        We're revolutionizing the way you experience vegan food
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-800 transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+        <div class="text-6xl mb-4">🌱</div>
+        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">100% Plant-Based</h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          Every dish is crafted with fresh, organic ingredients that are completely plant-based and delicious.
+        </p>
+      </div>
+
+      <div class="text-center p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-800 transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+        <div class="text-6xl mb-4">🚀</div>
+        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Fast Delivery</h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          Get your favorite vegan meals delivered hot and fresh in under 30 minutes.
+        </p>
+      </div>
+
+      <div class="text-center p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-800 transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+        <div class="text-6xl mb-4">⭐</div>
+        <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">5-Star Quality</h3>
+        <p class="text-gray-600 dark:text-gray-300">
+          Award-winning chefs create exceptional dishes that even non-vegans absolutely love.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Dishes Swiper -->
+<section class="py-20 bg-emerald-50 dark:bg-emerald-950">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
+        Popular Dishes
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300">
+        Discover our most loved vegan creations
+      </p>
+    </div>
+
+    <div class="swiper dishes-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="bg-white dark:bg-emerald-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div class="h-48 bg-gradient-to-br from-emerald-200 to-emerald-300 dark:from-emerald-600 dark:to-emerald-700 flex items-center justify-center">
+              <span class="text-6xl">🥙</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Vegan Buddha Bowl</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">Fresh quinoa, roasted vegetables, and tahini dressing</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">$12.99</span>
+                <button class="bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="bg-white dark:bg-emerald-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div class="h-48 bg-gradient-to-br from-emerald-200 to-emerald-300 dark:from-emerald-600 dark:to-emerald-700 flex items-center justify-center">
+              <span class="text-6xl">🍝</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Creamy Alfredo Pasta</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">Rich cashew cream sauce with fresh herbs</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">$14.99</span>
+                <button class="bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="bg-white dark:bg-emerald-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div class="h-48 bg-gradient-to-br from-emerald-200 to-emerald-300 dark:from-emerald-600 dark:to-emerald-700 flex items-center justify-center">
+              <span class="text-6xl">🍔</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Beyond Burger</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">Plant-based patty with all the fixings</p>
+              <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">$13.99</span>
+                <button class="bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next text-emerald-600"></div>
+      <div class="swiper-button-prev text-emerald-600"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-emerald-600 dark:bg-emerald-800">
+  <div class="max-w-4xl mx-auto text-center px-4">
+    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+      Ready to Start Your Vegan Journey?
+    </h2>
+    <p class="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
+      Join thousands of happy customers who have made the switch to delicious, sustainable eating.
+    </p>
+    <button class="bg-white text-emerald-600 font-bold px-8 py-4 rounded-full hover:bg-emerald-50 transition-all duration-300 transform hover:scale-105 shadow-lg text-lg">
+      Get Started Today
+    </button>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+    padding: 20px 0;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const swiper = new Swiper('.dishes-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
+  });
+</script>
+{% endblock %}
