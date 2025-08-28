@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="p-6 bg-white dark:bg-emerald-800 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Welcome, {{ user.username }}</h2>
+  <p class="mb-4">Role: <span class="font-semibold">{{ user.role }}</span></p>
+  <a href="{% url 'users:logout' %}" class="bg-red-600 text-white px-3 py-2 rounded-lg">Logout</a>
+</div>
+{% endblock %}

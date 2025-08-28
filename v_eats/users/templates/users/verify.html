@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white dark:bg-emerald-800 p-6 rounded-lg shadow-lg">
+  <h2 class="text-xl font-bold mb-4">Verify Account</h2>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="code" placeholder="Enter verification code" class="w-full p-2 mb-3 rounded border">
+    <button type="submit" class="w-full bg-emerald-600 text-white py-2 rounded-lg">Verify</button>
+  </form>
+</div>
+{% endblock %}
