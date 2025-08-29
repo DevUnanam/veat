@@ -12,12 +12,18 @@
       Discover delicious vegan cuisine delivered fresh to your doorstep. Experience the future of plant-based dining.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
-      <button class="bg-white text-emerald-600 font-semibold px-8 py-4 rounded-full hover:bg-emerald-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
-        Order Now
-      </button>
-      <button class="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300 transform hover:scale-105">
-        Learn More
-      </button>
+      <a href="{% url 'restaurant:list' %}" class="bg-white text-emerald-600 font-semibold px-8 py-4 rounded-full hover:bg-emerald-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+        Browse Restaurants
+      </a>
+      {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'restaurant:add' %}" class="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300 transform hover:scale-105">
+          Add Restaurant
+        </a>
+      {% else %}
+        <button class="border-2 border-white text-white font-semibold px-8 py-4 rounded-full hover:bg-white hover:text-emerald-600 transition-all duration-300 transform hover:scale-105">
+          Learn More
+        </button>
+      {% endif %}
     </div>
   </div>
 

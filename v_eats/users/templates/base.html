@@ -19,8 +19,11 @@
     <div class="flex items-center space-x-4">
       <!-- Navigation Links -->
       <div class="hidden md:flex items-center space-x-6">
-        <a href="/" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">Home</a>
-        <a href="#" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">Menu</a>
+        <a href="{% url 'users:home' %}" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">Home</a>
+        <a href="{% url 'restaurant:list' %}" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">Restaurants</a>
+        {% if user.is_authenticated and user.is_superuser %}
+          <a href="{% url 'restaurant:add' %}" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">Add Restaurant</a>
+        {% endif %}
         <a href="#" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">About</a>
         <a href="#" class="text-white hover:text-emerald-200 transition-colors duration-200 font-medium">Contact</a>
       </div>
@@ -29,6 +32,21 @@
       <div class="flex items-center space-x-3">
         {% if user.is_authenticated %}
           <span class="text-white font-medium">Hello, {{ user.username }}!</span>
+          {% if user.is_superuser %}
+            <span class="text-emerald-200 text-sm">(Admin)</span>
+          {% elif user.profile and user.profile.role == 'RESTAURANT' %}
+            <span class="text-emerald-200 text-sm">(Restaurant)</span>
+            <a href="{% url 'restaurant:dashboard' %}" class="text-emerald-200 hover:text-white transition-colors duration-200 font-medium text-sm">
+              Dashboard
+            </a>
+          {% elif user.profile and user.profile.role == 'DRIVER' %}
+            <span class="text-emerald-200 text-sm">(Driver)</span>
+            <a href="{% url 'driver:dashboard' %}" class="text-emerald-200 hover:text-white transition-colors duration-200 font-medium text-sm">
+              Dashboard
+            </a>
+          {% elif user.profile and user.profile.role == 'USER' %}
+            <span class="text-emerald-200 text-sm">(Customer)</span>
+          {% endif %}
           <a href="{% url 'logout' %}" class="bg-emerald-700 dark:bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 dark:hover:bg-emerald-700 transition-all duration-200 font-medium">
             Logout
           </a>
@@ -66,8 +84,11 @@
   <!-- Mobile Menu -->
   <div id="mobileMenu" class="hidden md:hidden bg-emerald-600 dark:bg-emerald-800 transition-colors duration-300">
     <div class="px-4 py-2 space-y-2">
-      <a href="/" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">Home</a>
-      <a href="#" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">Menu</a>
+      <a href="{% url 'users:home' %}" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">Home</a>
+      <a href="{% url 'restaurant:list' %}" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">Restaurants</a>
+      {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'restaurant:add' %}" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">Add Restaurant</a>
+      {% endif %}
       <a href="#" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">About</a>
       <a href="#" class="block text-white hover:text-emerald-200 transition-colors duration-200 font-medium py-2">Contact</a>
     </div>

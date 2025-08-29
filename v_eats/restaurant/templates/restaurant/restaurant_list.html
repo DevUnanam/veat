@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+  <!-- Header -->
+  <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Restaurants</h1>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Discover amazing restaurants in your area</p>
+        </div>
+        {% if user.is_authenticated and user.is_superuser %}
+          <a href="{% url 'restaurant:add' %}"
+             class="mt-4 md:mt-0 bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition-colors duration-200 font-medium">
+            Add New Restaurant
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Search and Filter -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 mb-8">
+      <form method="get" class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1">
+          <input type="text"
+                 name="search"
+                 value="{{ search_query }}"
+                 placeholder="Search restaurants..."
+                 class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white">
+        </div>
+        <div>
+          <select name="category"
+                  class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white">
+            <option value="">All Categories</option>
+            {% for value, label in categories %}
+              <option value="{{ value }}" {% if category_filter == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit"
+                class="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors duration-200">
+          Search
+        </button>
+      </form>
+    </div>
+
+    <!-- Restaurants Grid -->
+    {% if restaurants %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for restaurant in restaurants %}
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-200 overflow-hidden">
+            {% if restaurant.image %}
+              <img src="{{ restaurant.image.url }}" alt="{{ restaurant.name }}" class="w-full h-48 object-cover">
+            {% else %}
+              <div class="w-full h-48 bg-gradient-to-br from-emerald-200 to-emerald-300 dark:from-emerald-600 dark:to-emerald-700 flex items-center justify-center">
+                <span class="text-4xl">🍽️</span>
+              </div>
+            {% endif %}
+
+            <div class="p-6">
+              <div class="flex items-start justify-between mb-2">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ restaurant.name }}</h3>
+                <span class="text-sm px-2 py-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 rounded-full">
+                  {{ restaurant.category|capfirst }}
+                </span>
+              </div>
+
+              <p class="text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">{{ restaurant.description }}</p>
+
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                <span>⭐ {{ restaurant.rating|floatformat:1 }}</span>
+                <span>🕐 {{ restaurant.opening_time|time:"g:i A" }} - {{ restaurant.closing_time|time:"g:i A" }}</span>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <div class="text-sm">
+                  {% if restaurant.is_delivery_available %}
+                    <span class="text-green-600 dark:text-green-400">🚚 Delivery Available</span>
+                  {% else %}
+                    <span class="text-gray-500">Pickup Only</span>
+                  {% endif %}
+                </div>
+                {% if user.is_authenticated and user.is_superuser %}
+                  <a href="{% url 'restaurant:dashboard' restaurant.pk %}"
+                     class="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors duration-200 text-sm">
+                    Manage
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if is_paginated %}
+        <div class="flex justify-center mt-8">
+          <nav class="flex space-x-2">
+            {% if page_obj.has_previous %}
+              <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if category_filter %}&category={{ category_filter }}{% endif %}"
+                 class="px-3 py-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">First</a>
+              <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category_filter %}&category={{ category_filter }}{% endif %}"
+                 class="px-3 py-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Previous</a>
+            {% endif %}
+
+            <span class="px-3 py-2 bg-emerald-600 text-white rounded">
+              {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category_filter %}&category={{ category_filter }}{% endif %}"
+                 class="px-3 py-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Next</a>
+              <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category_filter %}&category={{ category_filter }}{% endif %}"
+                 class="px-3 py-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Last</a>
+            {% endif %}
+          </nav>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="text-center py-12">
+        <div class="text-6xl mb-4">🍽️</div>
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No restaurants found</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Try adjusting your search criteria or check back later.</p>
+        {% if user.is_authenticated and user.is_superuser %}
+          <a href="{% url 'restaurant:add' %}"
+             class="bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition-colors duration-200 font-medium">
+            Add First Restaurant
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

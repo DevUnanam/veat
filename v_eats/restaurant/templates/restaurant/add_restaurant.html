@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100 dark:from-emerald-900 dark:to-green-900 py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Add New Restaurant
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300">
+        Create a new restaurant profile and start managing your business
+      </p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden">
+      <div class="bg-gradient-to-r from-emerald-600 to-green-600 px-8 py-6">
+        <h2 class="text-2xl font-bold text-white">Restaurant Information</h2>
+        <p class="text-emerald-100 mt-2">Fill in the details below to create your restaurant profile</p>
+      </div>
+
+      <form method="post" enctype="multipart/form-data" class="p-8 space-y-8">
+        {% csrf_token %}
+
+        <!-- Basic Information -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2">
+              Basic Information
+            </h3>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Restaurant Name *
+              </label>
+              {{ form.name }}
+              {% if form.name.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Category *
+              </label>
+              {{ form.category }}
+              {% if form.category.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.category.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Description *
+              </label>
+              {{ form.description }}
+              {% if form.description.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.description.errors.0 }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2">
+              Contact Details
+            </h3>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Phone Number *
+              </label>
+              {{ form.phone }}
+              {% if form.phone.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.phone.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Email Address *
+              </label>
+              {{ form.email }}
+              {% if form.email.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Website (Optional)
+              </label>
+              {{ form.website }}
+              {% if form.website.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.website.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Address *
+              </label>
+              {{ form.address }}
+              {% if form.address.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.address.errors.0 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Images Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2 mb-6">
+              Restaurant Images
+            </h3>
+
+            <div class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Restaurant Image
+                </label>
+                {{ form.image }}
+                <p class="mt-1 text-sm text-gray-500">Upload a high-quality image of your restaurant</p>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Restaurant Logo
+                </label>
+                {{ form.logo }}
+                <p class="mt-1 text-sm text-gray-500">Upload your restaurant logo</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2 mb-6">
+              Operating Hours
+            </h3>
+
+            <div class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Opening Time *
+                </label>
+                {{ form.opening_time }}
+                {% if form.opening_time.errors %}
+                  <p class="mt-1 text-sm text-red-600">{{ form.opening_time.errors.0 }}</p>
+                {% endif %}
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Closing Time *
+                </label>
+                {{ form.closing_time }}
+                {% if form.closing_time.errors %}
+                  <p class="mt-1 text-sm text-red-600">{{ form.closing_time.errors.0 }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery Settings -->
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2 mb-6">
+            Delivery Settings
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex items-center space-x-3">
+              {{ form.is_delivery_available }}
+              <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Delivery Available
+              </label>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Delivery Fee ($)
+              </label>
+              {{ form.delivery_fee }}
+              {% if form.delivery_fee.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.delivery_fee.errors.0 }}</p>
+              {% endif %}
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Minimum Order ($)
+              </label>
+              {{ form.minimum_order }}
+              {% if form.minimum_order.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.minimum_order.errors.0 }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex justify-end space-x-4 pt-8 border-t border-gray-200 dark:border-gray-600">
+          <a href="{% url 'users:home' %}"
+             class="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 font-medium">
+            Cancel
+          </a>
+          <button type="submit"
+                  class="px-8 py-3 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-lg hover:from-emerald-700 hover:to-green-700 transition-all duration-200 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            Create Restaurant
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
