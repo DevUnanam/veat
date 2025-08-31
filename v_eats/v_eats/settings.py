@@ -55,6 +55,8 @@ ROOT_URLCONF = 'v_eats.urls'
 
 # TEMPLATES[0]['DIRS'] = [BASE_DIR / "templates"]
 
+LOGIN_REDIRECT_URL = 'users:home'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
