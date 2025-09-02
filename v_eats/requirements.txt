@@ -2,6 +2,7 @@ asgiref==3.8.1
 certifi==2024.8.30
 charset-normalizer==3.4.2
 colorama==0.4.6
+decouple==0.0.7
 distlib==0.3.8
 dj-database-url==2.3.0
 Django==5.2

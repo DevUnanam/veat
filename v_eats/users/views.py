@@ -5,11 +5,44 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
 from .forms import CustomerRegistrationForm, RestaurantRegistrationForm, DriverRegistrationForm, VerificationForm
 from .models import User, UserProfile
 import logging
 
 logger = logging.getLogger(__name__)
+
+def send_verification_email(user, verification_code):
+    """Send verification code via email"""
+    subject = 'V-Eats Account Verification Code'
+    message = f"""
+    Hello {user.first_name or user.username},
+
+    Thank you for registering with V-Eats!
+
+    Your verification code is: {verification_code}
+
+    Please enter this code to verify your account.
+
+    This code will expire in 10 minutes.
+
+    Best regards,
+    V-Eats Team
+    """
+
+    try:
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [user.email],
+            fail_silently=False,
+        )
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send verification email to {user.email}: {str(e)}")
+        return False
 
 def home(request):
     """Home page view"""
@@ -29,11 +62,12 @@ def register_customer(request):
                 # Generate verification code
                 verification_code = user.profile.generate_verification_code()
 
-                # Log to console (in production, send via SMS/Email)
-                print(f"Verification code for {user.username}: {verification_code}")
-                logger.info(f"Verification code for {user.username}: {verification_code}")
+                # Send verification email
+                if send_verification_email(user, verification_code):
+                    messages.success(request, 'Registration successful! Check your email for verification code.')
+                else:
+                    messages.error(request, 'Registration successful but failed to send verification email. Please contact support.')
 
-                messages.success(request, 'Registration successful! Check your console for verification code.')
                 return redirect('users:verify', user_id=user.id)
             except Exception as e:
                 messages.error(request, f'Registration failed: {str(e)}')
@@ -57,11 +91,12 @@ def register_restaurant(request):
             # Generate verification code
             verification_code = user.profile.generate_verification_code()
 
-            # Log to console (in production, send via SMS/Email)
-            print(f"Verification code for {user.username}: {verification_code}")
-            logger.info(f"Verification code for {user.username}: {verification_code}")
+            # Send verification email
+            if send_verification_email(user, verification_code):
+                messages.success(request, 'Restaurant registration successful! Check your email for verification code.')
+            else:
+                messages.error(request, 'Registration successful but failed to send verification email. Please contact support.')
 
-            messages.success(request, 'Restaurant registration successful! Check your console for verification code.')
             return redirect('users:verify', user_id=user.id)
     else:
         form = RestaurantRegistrationForm()
@@ -77,11 +112,12 @@ def register_driver(request):
             # Generate verification code
             verification_code = user.profile.generate_verification_code()
 
-            # Log to console (in production, send via SMS/Email)
-            print(f"Verification code for {user.username}: {verification_code}")
-            logger.info(f"Verification code for {user.username}: {verification_code}")
+            # Send verification email
+            if send_verification_email(user, verification_code):
+                messages.success(request, 'Driver registration successful! Check your email for verification code.')
+            else:
+                messages.error(request, 'Registration successful but failed to send verification email. Please contact support.')
 
-            messages.success(request, 'Driver registration successful! Check your console for verification code.')
             return redirect('users:verify', user_id=user.id)
     else:
         form = DriverRegistrationForm()
@@ -131,11 +167,11 @@ def resend_verification(request, user_id):
         user_profile = UserProfile.objects.get(user_id=user_id)
         verification_code = user_profile.generate_verification_code()
 
-        # Log to console (in production, send via SMS/Email)
-        print(f"New verification code for {user_profile.user.username}: {verification_code}")
-        logger.info(f"New verification code for {user_profile.user.username}: {verification_code}")
-
-        return JsonResponse({'success': True, 'message': 'Verification code sent! Check console.'})
+        # Send verification email
+        if send_verification_email(user_profile.user, verification_code):
+            return JsonResponse({'success': True, 'message': 'Verification code sent to your email!'})
+        else:
+            return JsonResponse({'success': False, 'message': 'Failed to send verification email. Please try again.'})
     except UserProfile.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'User not found.'})
 
